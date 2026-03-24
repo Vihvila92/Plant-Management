@@ -1,0 +1,8 @@
+[wokwi]
+version = 1
+firmware = "build/plant_management_firmware.bin"
+elf = "build/plant_management_firmware.elf"
+
+[[net.forward]]
+from = "localhost:1883"
+to = "target:1883"

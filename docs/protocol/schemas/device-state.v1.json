@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plant-management.local/schemas/device-state.v1.json",
+  "title": "Device State v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["deviceId", "firmwareVersion", "lifecycle", "health", "connected", "bootCount"],
+  "properties": {
+    "deviceId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "firmwareVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "lifecycle": {
+      "type": "string",
+      "enum": ["booting", "provisioning", "online", "offline", "error"]
+    },
+    "health": {
+      "type": "string",
+      "enum": ["unknown", "ok", "warn", "error"]
+    },
+    "connected": {
+      "type": "boolean"
+    },
+    "bootCount": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "lastErrorCode": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "lastHeartbeatMs": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plant-management.local/schemas/command-request.v1.json",
+  "title": "Command Request v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "amountMl", "requestedBy", "reason"],
+  "properties": {
+    "kind": {
+      "type": "string",
+      "const": "water"
+    },
+    "amountMl": {
+      "type": "number",
+      "minimum": 0
+    },
+    "requestedBy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "correlationId": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

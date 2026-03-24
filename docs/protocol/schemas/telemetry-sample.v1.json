@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plant-management.local/schemas/telemetry-sample.v1.json",
+  "title": "Telemetry Sample v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "channelId", "channelKey", "value", "unit", "quality", "recordedAt", "source"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "channelId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "channelKey": {
+      "type": "string",
+      "minLength": 1
+    },
+    "value": {
+      "type": "number"
+    },
+    "unit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "quality": {
+      "type": "string",
+      "enum": ["good", "estimated", "fault"]
+    },
+    "recordedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "type": "string",
+      "enum": ["device", "derived"]
+    }
+  }
+}

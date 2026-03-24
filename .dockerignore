@@ -1,0 +1,26 @@
+# Dependencies — reinstalled inside the image.
+node_modules/
+backend/node_modules/
+web/node_modules/
+
+# Build outputs.
+dist/
+backend/dist/
+web/dist/
+*.tsbuildinfo
+
+# Secrets — must never be baked into a Docker image.
+.env
+.env.*
+
+# Firmware — not part of the backend or web build context.
+firmware/
+
+# Version control and editor noise.
+.git/
+.vscode/
+.idea/
+
+# Logs and local tooling state.
+*.log
+coverage/

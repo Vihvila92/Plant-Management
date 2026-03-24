@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "author": "Codex",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-c3-devkitm-1",
+      "id": "esp",
+      "top": -10.6,
+      "left": -3.2,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht1",
+      "top": -140.4,
+      "left": 182.6,
+      "attrs": {
+        "temperature": "23.5",
+        "humidity": "58"
+      }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "soil1",
+      "top": 131.2,
+      "left": 199.2,
+      "attrs": {
+        "value": "610"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "pumpLed",
+      "top": 83.2,
+      "left": -129.6,
+      "attrs": {
+        "color": "blue"
+      }
+    }
+  ],
+  "connections": [
+    [ "esp:3V3", "dht1:VCC", "red", [ "v0" ] ],
+    [ "esp:GND.1", "dht1:GND", "black", [ "v0" ] ],
+    [ "esp:GPIO4", "dht1:SDA", "green", [ "h0" ] ],
+
+    [ "esp:3V3", "soil1:VCC", "red", [ "v0" ] ],
+    [ "esp:GND.2", "soil1:GND", "black", [ "v0" ] ],
+    [ "esp:GPIO0", "soil1:SIG", "orange", [ "h0" ] ],
+
+    [ "esp:GPIO7", "pumpLed:A", "blue", [ "h0" ] ],
+    [ "pumpLed:C", "esp:GND.3", "black", [ "h0" ] ]
+  ],
+  "dependencies": {}
+}
