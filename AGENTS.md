@@ -256,6 +256,16 @@ Use this order of operations:
 Do not casually reshape architecture.
 If a task changes a shared contract, define or validate the contract before implementation spreads.
 
+## Branch Discipline
+
+One branch, one thing. Finish it and push it to GitHub before starting the next.
+
+- Do not open or edit a second feature branch while another is open and unmerged.
+- Do not start new work until the current branch has been pushed and its PR is ready for review.
+- If a new requirement surfaces mid-task, note it and finish the current branch first.
+
+This applies to all agents and subagents. Parallel branch work causes merge conflicts and makes the review history harder to follow.
+
 ## Subagent Policy
 
 For substantial work, always create dedicated subagents by project area instead of treating the repository as one undifferentiated task.
