@@ -3,29 +3,54 @@ name: Firmware CI
 on:
   push:
     branches: [main, develop]
-    paths:
-      - "firmware/**"
   pull_request:
     branches: [main, develop]
-    paths:
-      - "firmware/**"
 
-# Cancel in-progress runs for the same branch when a new commit is pushed.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build:
-    name: Build (ESP32-C3)
+  changes:
+    name: Detect firmware changes
     runs-on: ubuntu-latest
-
+    outputs:
+      firmware: ${{ steps.filter.outputs.firmware }}
     steps:
       - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            firmware:
+              - 'firmware/**'
 
+  build:
+    name: Build (ESP32-C3)
+    needs: changes
+    if: needs.changes.outputs.firmware == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
       - name: Build firmware
         uses: espressif/esp-idf-ci-action@v1
         with:
           esp_idf_version: v5.4.1
           target: esp32c3
           path: firmware
+
+  firmware-check:
+    name: Firmware Check
+    needs: [changes, build]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Evaluate build result
+        run: |
+          build="${{ needs.build.result }}"
+          if [[ "$build" == "success" || "$build" == "skipped" ]]; then
+            echo "Firmware check passed (build=$build)"
+          else
+            echo "Firmware build failed (build=$build)"
+            exit 1
+          fi

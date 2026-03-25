@@ -65,7 +65,15 @@ esp_err_t pm_config_load(pm_config_t *config)
     }
 
     pm_config_set_defaults(config);
-    ESP_LOGI(TAG, "Loaded default device configuration scaffold");
+
+#if PM_ALLOW_INSECURE_DEV_CONFIG
+    snprintf(config->mqtt_broker_uri, sizeof(config->mqtt_broker_uri), "mqtt://localhost:1883");
+    config->require_tls = false;
+    config->verify_server_certificate = false;
+    ESP_LOGW(TAG, "DEV MODE: insecure configuration active (Wokwi/local) — never use in production");
+#endif
+
+    ESP_LOGI(TAG, "Loaded device configuration for device_id=%s", config->device_id);
     return ESP_OK;
 }
 
