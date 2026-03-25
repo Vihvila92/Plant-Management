@@ -3,3 +3,5 @@ idf_component_register(
     INCLUDE_DIRS "include"
     REQUIRES esp_common
 )
+
+target_compile_definitions(${COMPONENT_LIB} PRIVATE PM_ALLOW_INSECURE_DEV_CONFIG=1)
